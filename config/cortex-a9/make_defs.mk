@@ -41,7 +41,9 @@ MAKE_DEFS_MK_INCLUDED := yes
 #
 # --- Development tools definitions --------------------------------------------
 #
-
+TOOL_VER=arm-linux-gnueabihf
+CC		:=${TOOL_VER}-gcc
+CC_VENDOR	:=gcc
 # --- Determine the C compiler and related flags ---
 ifeq ($(CC),)
 CC             := gcc
@@ -71,14 +73,16 @@ CVECFLAGS      := -march=armv7-a
 CKOPTFLAGS     := $(COPTFLAGS)
 
 # --- Determine the archiver and related flags ---
-AR             := ar
+AR             := ${TOOL_VER}-ar
 ARFLAGS        := cru
 
 # --- Determine the linker and related flags ---
 LINKER         := $(CC)
 SOFLAGS        := -shared
-LDFLAGS        := -lm
+LDFLAGS        := -lm -static
 
+# --- Determine the ranlib utilities ---
+RANLIB         := ${TOOL_VER}-ranlib
 
 
 # end of ifndef MAKE_DEFS_MK_INCLUDED conditional block
